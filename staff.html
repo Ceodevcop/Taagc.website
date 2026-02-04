@@ -1,98 +1,107 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8">
   <title>Our Team | TAAGC</title>
   <link rel="stylesheet" href="assets/css/style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #f5f5f5;
+    }
+
+    .org-chart {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 40px;
+    }
+
+    .level {
+      display: flex;
+      justify-content: center;
+      margin: 20px 0;
+    }
+
+    .member {
+      background: #fff;
+      border: 2px solid #0070f3;
+      border-radius: 10px;
+      padding: 10px 20px;
+      margin: 0 15px;
+      min-width: 120px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+
+    .connector {
+      height: 40px;
+      width: 2px;
+      background: #0070f3;
+      margin: 0 auto;
+    }
+
+    .horizontal-connector {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin: 0 -15px;
+    }
+
+    .horizontal-connector div {
+      height: 2px;
+      background: #0070f3;
+      flex: 1;
+    }
+  </style>
 </head>
 <body>
+  <h1>TAAGC Organizational Chart</h1>
 
-<nav>
-  <strong>TAAGC</strong>
-  <div>
-    <a href="index.html">Home</a>
-    <a href="login.html">Login</a>
+  <div class="org-chart">
+    <!-- CEO -->
+    <div class="member">CEO <br> Ahmad Hamza</div>
+    <div class="connector"></div>
+
+    <!-- President -->
+    <div class="member">President <br> [Name]</div>
+    <div class="connector"></div>
+
+    <!-- CFO / COO / CTO -->
+    <div class="level">
+      <div class="member">CFO <br> [Name]</div>
+      <div class="member">COO <br> [Name]</div>
+      <div class="member">CTO/CIO <br> [Name]</div>
+    </div>
+    <div class="horizontal-connector">
+      <div></div><div></div><div></div>
+    </div>
+    <div class="connector"></div>
+
+    <!-- Dept Heads / Senior Managers -->
+    <div class="level">
+      <div class="member">Dept Head 1</div>
+      <div class="member">Dept Head 2</div>
+      <div class="member">Dept Head 3</div>
+    </div>
+    <div class="connector"></div>
+
+    <!-- Middle Managers / Team Leads -->
+    <div class="level">
+      <div class="member">Team Lead 1</div>
+      <div class="member">Team Lead 2</div>
+      <div class="member">Team Lead 3</div>
+    </div>
+    <div class="connector"></div>
+
+    <!-- Employees / Staff -->
+    <div class="level">
+      <div class="member">Employee 1</div>
+      <div class="member">Employee 2</div>
+      <div class="member">Employee 3</div>
+      <div class="member">Employee 4</div>
+      <div class="member">Employee 5</div>
+    </div>
   </div>
-</nav>
-
-<div class="container">
-  <h1>Leadership & Staff</h1>
-
-  <div class="grid">
-
-    <div class="card">
-      <img src="assets/images/ChatGPT Image Dec 31, 2025, 08_58_24 PM.png">
-      <h3>AHMAD HAMZA</h3>
-      <p class="role">CEO & Founder</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/gm.jpg">
-      <h3>Alkasim Bashir Yusuf</h3>
-      <p class="role">General Manager</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff1.jpg">
-      <h3>Staff Member 1</h3>
-      <p class="role">Operations</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff2.jpg">
-      <h3>Staff Member 2</h3>
-      <p class="role">Finance</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff3.jpg">
-      <h3>Staff Member 3</h3>
-      <p class="role">IT & Security</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff4.jpg">
-      <h3>Staff Member 4</h3>
-      <p class="role">Legal</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff5.jpg">
-      <h3>Staff Member 5</h3>
-      <p class="role">Marketing</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff6.jpg">
-      <h3>Staff Member 6</h3>
-      <p class="role">Investor Relations</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff7.jpg">
-      <h3>Staff Member 7</h3>
-      <p class="role">Customer Support</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff8.jpg">
-      <h3>Staff Member 8</h3>
-      <p class="role">Project Manager</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff9.jpg">
-      <h3>Staff Member 9</h3>
-      <p class="role">Business Analyst</p>
-    </div>
-
-    <div class="card">
-      <img src="assets/images/staff10.jpg">
-      <h3>Staff Member 10</h3>
-      <p class="role">Logistics</p>
-    </div>
-
-  </div>
-</div>
-
 </body>
 </html>
