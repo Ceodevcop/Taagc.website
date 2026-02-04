@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Investor Dashboard</title>
+  <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+  <h1>Investor Dashboard</h1>
+  <div id="investment-list"></div>
+
+  <script type="module" src="../assets/js/firebase.js"></script>
+  <script type="module" src="../assets/js/guard.js"></script>
+  <script type="module" src="../assets/js/investor.js"></script>
+  <script type="module">
+    import { protectPage } from '../assets/js/guard.js';
+    import { loadInvestorData } from '../assets/js/investor.js';
+    protectPage('investor');
+    loadInvestorData();
+  </script>
+</body>
+</html>
