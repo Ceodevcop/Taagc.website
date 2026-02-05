@@ -2,23 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Investor Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Investor Dashboard - TAAGC</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
   <h1>Investor Dashboard</h1>
-  <div id="investment-list"></div>
+
+  <section>
+    <h2>Make Payment</h2>
+    <input id="paymentAmount" type="number" placeholder="Amount in USD">
+    <button onclick="recordPayment(document.getElementById('paymentAmount').value)">Submit Payment</button>
+  </section>
+
+  <section>
+    <h2>My Payments</h2>
+    <ul id="investorPayments"></ul>
+  </section>
 
   <script type="module" src="../assets/js/firebase.js"></script>
-  <script type="module" src="../assets/js/guard.js"></script>
   <script type="module" src="../assets/js/investor.js"></script>
   <script type="module">
-    import { protectPage } from '../assets/js/guard.js';
-    import { loadInvestorData } from '../assets/js/investor.js';
-    protectPage('investor');
-    loadInvestorData();
+    import { loadPayments } from "../assets/js/investor.js";
+    loadPayments();
   </script>
-  <button onclick="logout()">Logout</button>
-
 </body>
 </html>
