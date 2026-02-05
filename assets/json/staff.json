@@ -1,0 +1,29 @@
+{
+  "staff": [
+    {
+      "name": "Ahmad Hamza",
+      "position": "CEO",
+      "image": "/assets/images/ceo.jpg"
+    },
+    {
+      "name": "Alkasim Bashir Yusuf",
+      "position": "President / General Manager",
+      "image": "/assets/images/gm.jpg"
+    },
+    {
+      "name": "Finance Director",
+      "position": "CFO",
+      "image": "/assets/images/staff1.jpg"
+    },
+    {
+      "name": "Operations Director",
+      "position": "COO",
+      "image": "/assets/images/staff2.jpg"
+    },
+    {
+      "name": "Technology Director",
+      "position": "CTO / CIO",
+      "image": "/assets/images/staff3.jpg"
+    }
+  ]
+}
