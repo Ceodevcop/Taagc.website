@@ -1,3 +1,18 @@
+import { db, auth } from "./firebase.js";
+import { addDoc, collection, serverTimestamp } from
+  "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+
+window.recordPayment = async function (amount) {
+  await addDoc(collection(db, "payments"), {
+    investorId: auth.currentUser.uid,
+    amount,
+    currency: "USD",
+    status: "pending",
+    createdAt: serverTimestamp()
+  });
+
+  alert("Payment recorded. Await confirmation.");
+};
 import { auth, db } from "./firebase.js";
 import {
   collection,
