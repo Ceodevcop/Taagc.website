@@ -1,0 +1,14 @@
+{
+  "admin": {
+    "label": "Administrator",
+    "dashboard": "/dashboard/admin.html"
+  },
+  "investor": {
+    "label": "Investor",
+    "dashboard": "/dashboard/investor.html"
+  },
+  "client": {
+    "label": "Client",
+    "dashboard": "/dashboard/client.html"
+  }
+}
