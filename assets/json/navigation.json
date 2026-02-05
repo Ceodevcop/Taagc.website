@@ -1,0 +1,12 @@
+{
+  "main": [
+    { "label": "Home", "url": "/index.html" },
+    { "label": "Staff", "url": "/staff.html" },
+    { "label": "Login", "url": "/login.html" }
+  ],
+  "dashboard": {
+    "admin": ["Users", "Reports", "Settings"],
+    "investor": ["Investments", "Returns"],
+    "client": ["Requests", "Support"]
+  }
+}
