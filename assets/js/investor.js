@@ -1,41 +1,38 @@
 import { db, auth } from "./firebase.js";
-import { addDoc, collection, serverTimestamp } from
-  "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { collection, addDoc, serverTimestamp, query, where, getDocs } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-window.recordPayment = async function (amount) {
-  await addDoc(collection(db, "payments"), {
-    investorId: auth.currentUser.uid,
-    amount,
-    currency: "USD",
-    status: "pending",
-    createdAt: serverTimestamp()
-  });
-
-  alert("Payment recorded. Await confirmation.");
-};
-import { auth, db } from "./firebase.js";
-import {
-  collection,
-  query,
-  where,
-  onSnapshot
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
-
-export function loadInvestorData() {
-  const user = auth.currentUser;
-  if (!user) return;
-
-  const q = query(
-    collection(db, "investments"),
-    where("investorId", "==", user.uid)
-  );
-
-  onSnapshot(q, (snap) => {
-    const box = document.getElementById("investment-list");
-    box.innerHTML = "";
-    snap.forEach(doc => {
-      const d = doc.data();
-      box.innerHTML += `<p>${d.project} — $${d.amount} (${d.roi}%)</p>`;
+// Record a new payment (placeholder, integrate with Paystack/Flutterwave)
+window.recordPayment = async function(amount) {
+  try {
+    await addDoc(collection(db, "payments"), {
+      investorId: auth.currentUser.uid,
+      amount,
+      currency: "USD",
+      status: "pending",
+      createdAt: serverTimestamp()
     });
-  });
+    alert("Payment recorded successfully. Await confirmation.");
+  } catch (err) {
+    console.error("Payment recording failed", err);
+    alert(err.message);
+  }
+};
+
+// List all payments made by current investor
+export async function loadPayments() {
+  try {
+    const q = query(
+      collection(db, "payments"),
+      where("investorId", "==", auth.currentUser.uid)
+    );
+    const snap = await getDocs(q);
+    const container = document.getElementById("investorPayments");
+    container.innerHTML = "";
+    snap.forEach(doc => {
+      const p = doc.data();
+      container.innerHTML += `<li>${p.amount} ${p.currency} - ${p.status}</li>`;
+    });
+  } catch (err) {
+    console.error("Failed to load payments", err);
+  }
 }
