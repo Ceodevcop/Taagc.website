@@ -7,22 +7,26 @@
   <section id="staffGrid" class="org-grid"></section>
 
 <script type="module">
-  import { loadJSON } from "./assets/js/jsonLoader.js";
+  import { db } from "./assets/js/firebase.js";
+  import { doc, getDoc } from
+    "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-  const container = document.getElementById("staffGrid");
+  const ref = doc(db, "config", "staff");
+  const snap = await getDoc(ref);
 
-  loadJSON("/assets/json/staff.json").then(data => {
-    data.staff.forEach(member => {
-      container.innerHTML += `
+  if (snap.exists()) {
+    snap.data().staff.forEach(m => {
+      staffGrid.innerHTML += `
         <div class="card">
-          <img src="${member.image}">
-          <h3>${member.name}</h3>
-          <p>${member.position}</p>
+          <img src="${m.image}">
+          <h3>${m.name}</h3>
+          <p>${m.position}</p>
         </div>
       `;
     });
-  });
+  }
 </script>
+
 
 </head>
 <body>
