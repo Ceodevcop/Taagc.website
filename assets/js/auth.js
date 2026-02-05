@@ -1,3 +1,11 @@
+import { sendEmailVerification } from
+"https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
+
+if (!cred.user.emailVerified) {
+  await sendEmailVerification(cred.user);
+  alert("Verification email sent. Please verify.");
+  return;
+}
 import { auth, db } from "./firebase.js";
 import { signInWithEmailAndPassword } from
   "https://www.gstatic.com/firebasejs/9.22.2/firebase-auth.js";
