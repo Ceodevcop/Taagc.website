@@ -10,22 +10,21 @@
   <h1>Client Dashboard</h1>
 
   <section>
-    <h2>Submit Request</h2>
-    <input id="requestTitle" placeholder="Title">
-    <textarea id="requestDescription" placeholder="Description"></textarea>
-    <button onclick="submitRequest(document.getElementById('requestTitle').value, document.getElementById('requestDescription').value)">Submit Request</button>
-  </section>
-
-  <section>
-    <h2>My Requests</h2>
-    <ul id="clientRequests"></ul>
+    <h2>Complete Your Profile</h2>
+    <form id="profileForm" onsubmit="submitProfile(); return false;">
+      <input type="text" id="fullName" placeholder="Full Name" required>
+      <input type="text" id="phone" placeholder="Phone Number" required>
+      <input type="text" id="address" placeholder="Address" required>
+      <input type="text" id="bankName" placeholder="Bank Name" required>
+      <input type="text" id="accountNumber" placeholder="Bank Account Number" required>
+      <label>Profile Picture</label>
+      <input type="file" id="profilePic" accept="image/*" required>
+      <button type="submit">Save Profile</button>
+    </form>
   </section>
 
   <script type="module" src="../assets/js/firebase.js"></script>
   <script type="module" src="../assets/js/client.js"></script>
-  <script type="module">
-    import { loadRequests } from "../assets/js/client.js";
-    loadRequests();
-  </script>
+  <script type="module" src="../assets/js/clientProfile.js"></script>
 </body>
 </html>
