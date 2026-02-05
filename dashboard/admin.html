@@ -7,23 +7,32 @@
 </head>
 <body>
   <h1>Admin Dashboard</h1>
-  <h2>Edit Staff</h2>
+<h2>Staff Manager</h2>
+
 <textarea id="jsonEditor" style="width:100%;height:300px"></textarea>
-<button onclick="saveJSON()">Save</button>
+<button onclick="saveStaff()">Save Staff</button>
 
 <script type="module">
-  import { loadJSON } from "../assets/js/jsonLoader.js";
+  import { db } from "../assets/js/firebase.js";
+  import { doc, getDoc, setDoc } from
+    "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
   const editor = document.getElementById("jsonEditor");
 
-  loadJSON("/assets/json/staff.json").then(data => {
-    editor.value = JSON.stringify(data, null, 2);
-  });
+  const ref = doc(db, "config", "staff");
 
-  window.saveJSON = function () {
-    alert("Frontend editing ready.\nNext step: connect backend API.");
+  const snap = await getDoc(ref);
+  if (snap.exists()) {
+    editor.value = JSON.stringify(snap.data(), null, 2);
+  }
+
+  window.saveStaff = async function () {
+    const data = JSON.parse(editor.value);
+    await setDoc(ref, data);
+    alert("Staff updated successfully");
   };
 </script>
+
   
   <button onclick="createUser(prompt('Name:'), prompt('Email:'), prompt('Role (admin/investor/client):'))">Create User</button>
 
