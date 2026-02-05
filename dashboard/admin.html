@@ -2,48 +2,34 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Admin Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard - TAAGC</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
   <h1>Admin Dashboard</h1>
-<h2>Staff Manager</h2>
 
-<textarea id="jsonEditor" style="width:100%;height:300px"></textarea>
-<button onclick="saveStaff()">Save Staff</button>
+  <section>
+    <h2>Edit Staff</h2>
+    <textarea id="jsonEditor" style="width:100%;height:300px"></textarea>
+    <button onclick="saveStaff()">Save Staff</button>
+  </section>
 
-<script type="module">
-  import { db } from "../assets/js/firebase.js";
-  import { doc, getDoc, setDoc } from
-    "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+  <section>
+    <h2>Create User</h2>
+    <input id="newUserEmail" placeholder="Email">
+    <select id="newUserRole">
+      <option value="admin">Admin</option>
+      <option value="investor">Investor</option>
+      <option value="client">Client</option>
+    </select>
+    <button onclick="createUser(document.getElementById('newUserEmail').value, document.getElementById('newUserRole').value)">Create User</button>
+  </section>
 
-  const editor = document.getElementById("jsonEditor");
-
-  const ref = doc(db, "config", "staff");
-
-  const snap = await getDoc(ref);
-  if (snap.exists()) {
-    editor.value = JSON.stringify(snap.data(), null, 2);
-  }
-
-  window.saveStaff = async function () {
-    const data = JSON.parse(editor.value);
-    await setDoc(ref, data);
-    alert("Staff updated successfully");
-  };
-</script>
-
-  
-  <button onclick="createUser(prompt('Name:'), prompt('Email:'), prompt('Role (admin/investor/client):'))">Create User</button>
-
+  <!-- Scripts -->
   <script type="module" src="../assets/js/firebase.js"></script>
-  <script type="module" src="../assets/js/guard.js"></script>
+  <script type="module" src="../assets/js/jsonLoader.js"></script>
   <script type="module" src="../assets/js/admin.js"></script>
-  <script type="module">
-    import { protectPage } from '../assets/js/guard.js';
-    protectPage('admin');
-  </script>
-  <button onclick="logout()">Logout</button>
-  
+  <script type="module" src="../assets/js/audit.js"></script>
 </body>
 </html>
