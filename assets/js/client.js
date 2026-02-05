@@ -1,43 +1,38 @@
-import { auth, db } from "./firebase.js";
-import {
-  collection,
-  addDoc,
-  serverTimestamp,
-  query,
-  where,
-  onSnapshot
-} from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import { db, auth } from "./firebase.js";
+import { collection, addDoc, query, where, getDocs, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-window.submitRequest = async function (title, description) {
-  const user = auth.currentUser;
-  if (!user) return alert("Login required");
-
-  await addDoc(collection(db, "tickets"), {
-    clientId: user.uid,
-    title,
-    description,
-    status: "open",
-    createdAt: serverTimestamp()
-  });
-
-  alert("Request sent");
+// Submit a support request or project request
+window.submitRequest = async function(title, description) {
+  try {
+    await addDoc(collection(db, "tickets"), {
+      clientId: auth.currentUser.uid,
+      title,
+      description,
+      status: "open",
+      createdAt: serverTimestamp()
+    });
+    alert("Request submitted successfully.");
+  } catch (err) {
+    console.error("Request submission failed", err);
+    alert(err.message);
+  }
 };
 
-export function loadRequests() {
-  const user = auth.currentUser;
-  if (!user) return;
-
-  const q = query(
-    collection(db, "tickets"),
-    where("clientId", "==", user.uid)
-  );
-
-  onSnapshot(q, (snap) => {
-    const box = document.getElementById("tickets-list");
-    box.innerHTML = "";
+// Load all requests for this client
+export async function loadRequests() {
+  try {
+    const q = query(
+      collection(db, "tickets"),
+      where("clientId", "==", auth.currentUser.uid)
+    );
+    const snap = await getDocs(q);
+    const container = document.getElementById("clientRequests");
+    container.innerHTML = "";
     snap.forEach(doc => {
-      const d = doc.data();
-      box.innerHTML += `<p>${d.title} — ${d.status}</p>`;
+      const r = doc.data();
+      container.innerHTML += `<li>${r.title} - ${r.status}</li>`;
     });
-  });
+  } catch (err) {
+    console.error("Failed to load requests", err);
+  }
 }
