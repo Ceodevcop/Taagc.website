@@ -1,0 +1,13 @@
+{
+  "company": {
+    "name": "TRIPLE A AHAL GLOBAL CONCEPT",
+    "shortName": "TAAGC",
+    "domain": "taagc.website",
+    "email": {
+      "ceo": "ceo@taagc.website",
+      "support": "support@taagc.website"
+    }
+  },
+  "version": "1.0.0",
+  "environment": "production"
+}
