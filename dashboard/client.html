@@ -2,24 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Client Dashboard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Client Dashboard - TAAGC</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
   <h1>Client Dashboard</h1>
-  <div id="tickets-list"></div>
-  <button onclick="submitRequest(prompt('Title:'), prompt('Description:'))">Submit Request</button>
+
+  <section>
+    <h2>Submit Request</h2>
+    <input id="requestTitle" placeholder="Title">
+    <textarea id="requestDescription" placeholder="Description"></textarea>
+    <button onclick="submitRequest(document.getElementById('requestTitle').value, document.getElementById('requestDescription').value)">Submit Request</button>
+  </section>
+
+  <section>
+    <h2>My Requests</h2>
+    <ul id="clientRequests"></ul>
+  </section>
 
   <script type="module" src="../assets/js/firebase.js"></script>
-  <script type="module" src="../assets/js/guard.js"></script>
   <script type="module" src="../assets/js/client.js"></script>
   <script type="module">
-    import { protectPage } from '../assets/js/guard.js';
-    import { loadRequests, submitRequest } from '../assets/js/client.js';
-    protectPage('client');
+    import { loadRequests } from "../assets/js/client.js";
     loadRequests();
   </script>
-  <button onclick="logout()">Logout</button>
-
 </body>
 </html>
