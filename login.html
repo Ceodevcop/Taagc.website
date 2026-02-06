@@ -7,16 +7,54 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
 <div class="main-content full" id="mainContent">
   <div class="card auth-page">
-    <h2>Login</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+    <h2>Login to Your Account</h2>
+
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
+
     <button onclick="login()">Login</button>
     <p>Don't have an account? <a href="signup.html">Sign Up</a></p>
   </div>
 </div>
 
-<script type="module" src="assets/js/auth.js"></script>
+<script type="module">
+import { auth, db } from './assets/js/firebase.js';
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+window.login = async () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+
+  try {
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    const userDoc = await getDoc(doc(db, "users", user.uid));
+    if(!userDoc.exists()) {
+      alert("User not found in database.");
+      return;
+    }
+
+    const data = userDoc.data();
+    if(!data.verified) {
+      alert("Your account is not approved by admin yet.");
+      return;
+    }
+
+    // Redirect based on role
+    if(data.role === "admin") window.location.href = "dashboard/admin.html";
+    else if(data.role === "investor") window.location.href = "dashboard/investor.html";
+    else window.location.href = "dashboard/client.html";
+
+  } catch (error) {
+    alert(error.message);
+  }
+};
+</script>
+
 </body>
 </html>
