@@ -1,28 +1,25 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TAAGC Signup</title>
+  <title>Signup</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <div class="signup-container">
-    <h1>Create Your Account</h1>
-    <form onsubmit="signupUser(); return false;">
-      <input id="email" type="email" placeholder="Email" required>
-      <input id="password" type="password" placeholder="Password" required>
-      <select id="role" required>
-        <option value="investor">Investor</option>
-        <option value="client">Client</option>
-      </select>
-      <button type="submit">Sign Up</button>
-    </form>
-    <p>Already have an account? <a href="login.html">Login</a></p>
-  </div>
 
-  <script type="module" src="assets/js/firebase.js"></script>
-  <script type="module" src="assets/js/jsonLoader.js"></script>
-  <script type="module" src="assets/js/signup.js"></script>
+<div class="main-content full" id="mainContent">
+  <h2>Create Account</h2>
+
+  <input id="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
+
+  <select id="role">
+    <option value="client">Client</option>
+    <option value="investor">Investor</option>
+  </select>
+
+  <button onclick="signup()">Create Account</button>
+</div>
+
+<script type="module" src="assets/js/signup.js"></script>
 </body>
 </html>
