@@ -7,20 +7,51 @@
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
+
 <div class="main-content full" id="mainContent">
   <div class="card auth-page">
-    <h2>Create Account</h2>
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="password" placeholder="Password">
+    <h2>Create Your Account</h2>
+
+    <input type="email" id="email" placeholder="Email" required>
+    <input type="password" id="password" placeholder="Password" required>
     <select id="role">
       <option value="client">Client</option>
       <option value="investor">Investor</option>
     </select>
+
     <button onclick="signup()">Sign Up</button>
     <p>Already have an account? <a href="login.html">Login</a></p>
   </div>
 </div>
 
-<script type="module" src="assets/js/signup.js"></script>
+<script type="module">
+import { auth, db } from './assets/js/firebase.js';
+import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
+import { doc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+window.signup = async () => {
+  const email = document.getElementById('email').value;
+  const password = document.getElementById('password').value;
+  const role = document.getElementById('role').value;
+
+  try {
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
+
+    await setDoc(doc(db, "users", user.uid), {
+      email,
+      role,
+      verified: false,
+      createdAt: new Date()
+    });
+
+    alert("Account created! Please wait for admin approval.");
+    window.location.href = "login.html";
+  } catch (error) {
+    alert(error.message);
+  }
+};
+</script>
+
 </body>
 </html>
