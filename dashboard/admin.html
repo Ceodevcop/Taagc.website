@@ -43,6 +43,37 @@
 <script type="module" src="../assets/js/logout.js"></script>
 <script type="module" src="../assets/js/guard.js"></script>
 <script type="module">
+  async function loadPendingUsers(filter = "") {
+  pendingUsersDiv.innerHTML = '';
+  const usersSnap = await getDocs(collection(db, "users"));
+  usersSnap.forEach(user => {
+    const data = user.data();
+    if(!data.verified && data.email.includes(filter)){
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <p><strong>${data.email}</strong> | Role: ${data.role}</p>
+        <button onclick="approveUser('${user.id}')">Approve</button>
+        <button onclick="deleteUser('${user.id}')">Delete</button>
+      `;
+      pendingUsersDiv.appendChild(div);
+    }
+  });
+}
+
+window.deleteUser = async (uid) => {
+  if(confirm("Are you sure you want to delete this user?")){
+    await deleteDoc(doc(db, "users", uid));
+    alert("User deleted");
+    loadPendingUsers();
+  }
+}
+
+const searchInput = document.createElement("input");
+searchInput.placeholder = "Search email...";
+searchInput.addEventListener("input", (e) => loadPendingUsers(e.target.value));
+pendingUsersDiv.parentNode.insertBefore(searchInput, pendingUsersDiv);
+
 import { auth, db } from "../assets/js/firebase.js";
 import { protectPage } from "../assets/js/guard.js";
 import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
