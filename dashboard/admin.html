@@ -2,126 +2,73 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Super Admin | TAAGC</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Admin Dashboard - TAAGC</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
 
-<!-- Sidebar -->
+<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
-  <h2 class="brand">TAAGC</h2>
-  <a href="admin.html">🏠 Dashboard</a>
+  <h2>TAAGC</h2>
+
+  <a href="/dashboard/admin.html">👑 Admin Dashboard</a>
+  <a href="/index.html">🏠 Home</a>
+
+  <hr>
+
+  <strong>Management</strong>
+  <a href="#users">👥 Users</a>
+  <a href="#stats">📊 Platform Stats</a>
+
+  <hr>
   <a href="#" onclick="logout()">🚪 Logout</a>
 </div>
 
-<!-- Topbar -->
+<!-- TOP BAR -->
 <div class="topbar">
   <button onclick="toggleSidebar()">☰</button>
+  <strong>Super Admin Panel</strong>
 </div>
 
+<!-- MAIN CONTENT -->
 <div class="main-content" id="mainContent">
-  <h2>Admin Dashboard</h2>
-  <p>Manage users, approve new accounts, and monitor activity.</p>
 
-  <div class="card">
-    <h3>Pending Users for Approval</h3>
-    <div id="pendingUsers">
-      <!-- Dynamically loaded users -->
+  <!-- STATS -->
+  <section id="stats">
+    <h2>📊 Platform Overview</h2>
+    <div class="cards">
+      <div class="card">Total Users: <span id="totalUsers">0</span></div>
+      <div class="card">Clients: <span id="totalClients">0</span></div>
+      <div class="card">Investors: <span id="totalInvestors">0</span></div>
     </div>
-  </div>
+  </section>
 
-  <div class="card">
-    <h3>Audit Logs</h3>
-    <div id="auditLogs">
-      <!-- Logs will appear here -->
-    </div>
-  </div>
+  <br>
+
+  <!-- USERS -->
+  <section id="users">
+    <h2>👥 User Management</h2>
+
+    <table class="admin-table">
+      <thead>
+        <tr>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Change Role</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="userTable"></tbody>
+    </table>
+  </section>
+
 </div>
 
-<script type="module" src="../assets/js/sidebar.js"></script>
-<script type="module" src="../assets/js/logout.js"></script>
-<script type="module" src="../assets/js/guard.js"></script>
-<script type="module">
-  async function loadPendingUsers(filter = "") {
-  pendingUsersDiv.innerHTML = '';
-  const usersSnap = await getDocs(collection(db, "users"));
-  usersSnap.forEach(user => {
-    const data = user.data();
-    if(!data.verified && data.email.includes(filter)){
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
-        <p><strong>${data.email}</strong> | Role: ${data.role}</p>
-        <button onclick="approveUser('${user.id}')">Approve</button>
-        <button onclick="deleteUser('${user.id}')">Delete</button>
-      `;
-      pendingUsersDiv.appendChild(div);
-    }
-  });
-}
-
-window.deleteUser = async (uid) => {
-  if(confirm("Are you sure you want to delete this user?")){
-    await deleteDoc(doc(db, "users", uid));
-    alert("User deleted");
-    loadPendingUsers();
-  }
-}
-
-const searchInput = document.createElement("input");
-searchInput.placeholder = "Search email...";
-searchInput.addEventListener("input", (e) => loadPendingUsers(e.target.value));
-pendingUsersDiv.parentNode.insertBefore(searchInput, pendingUsersDiv);
-
-import { auth, db } from "../assets/js/firebase.js";
-import { protectPage } from "../assets/js/guard.js";
-import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-protectPage(["admin"]); // only admin access
-
-const pendingUsersDiv = document.getElementById("pendingUsers");
-const auditLogsDiv = document.getElementById("auditLogs");
-
-async function loadPendingUsers() {
-  pendingUsersDiv.innerHTML = '';
-  const usersSnap = await getDocs(collection(db, "users"));
-  usersSnap.forEach(user => {
-    const data = user.data();
-    if(!data.verified) {
-      const div = document.createElement("div");
-      div.className = "card";
-      div.innerHTML = `
-        <p><strong>${data.email}</strong> | Role: ${data.role}</p>
-        <button onclick="approveUser('${user.id}')">Approve</button>
-      `;
-      pendingUsersDiv.appendChild(div);
-    }
-  });
-}
-
-window.approveUser = async (uid) => {
-  await updateDoc(doc(db, "users", uid), { verified: true });
-  alert("User approved");
-  loadPendingUsers();
-}
-
-async function loadAuditLogs() {
-  auditLogsDiv.innerHTML = '';
-  const logsSnap = await getDocs(collection(db, "auditLogs"));
-  logsSnap.forEach(log => {
-    const data = log.data();
-    const div = document.createElement("div");
-    div.className = "card";
-    div.innerHTML = `<p>${data.timestamp?.toDate() || ''} | ${data.action}</p>`;
-    auditLogsDiv.appendChild(div);
-  });
-}
-
-// Initial load
-loadPendingUsers();
-loadAuditLogs();
-</script>
-
+<script type="module" src="/assets/js/sidebar.js"></script>
+<script type="module" src="/assets/js/logout.js"></script>
+<script type="module" src="/assets/js/guard-admin.js"></script>
+<script type="module" src="/assets/js/admin.js"></script>
 </body>
 </html>
