@@ -1,166 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>TAAGC | Triple A Ahal Global Concept</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <!-- Main CSS -->
+  <title>TAAGC</title>
   <link rel="stylesheet" href="assets/css/style.css">
-  <nav class="navbar">
-  <div class="nav-container">
-
-    <!-- LOGO -->
-    <div class="logo">
-      <a href="index.html">TAAGC</a>
-    </div>
-
-
 </head>
-
 <body>
-  <div class="sidebar">
+
+<!-- SIDEBAR -->
+<div class="sidebar" id="sidebar">
   <h2 class="brand">TAAGC</h2>
 
   <a href="index.html">🏠 Home</a>
 
   <div class="sidebar-section">
     <span class="section-title">Business Nature</span>
-    <a href="#">🌾 General Agriculture</a>
-    <a href="#">🌽 Grain Processing</a>
-    <a href="#">💻 ICT</a>
-    <a href="#">🏗️ General Contract</a>
-    <a href="#">🛒 General Merchandise</a>
+    <a>🌾 General Agriculture</a>
+    <a>🌽 Grain Processing</a>
+    <a>💻 ICT</a>
+    <a>🏗️ General Contract</a>
+    <a>🛒 General Merchandise</a>
   </div>
 
   <hr>
-
-  <a href="staff.html">👥 Our Team</a>
   <a href="login.html">🔐 Login</a>
   <a href="signup.html">📝 Sign Up</a>
 </div>
 
-<!-- MAIN CONTENT -->
-<div class="main-content">
-  <!-- Your existing page content goes here -->
+<!-- TOPBAR -->
+<div class="topbar">
+  <button onclick="toggleSidebar()">☰</button>
 </div>
 
+<!-- CONTENT -->
+<div class="main-content" id="mainContent">
+  <h1>Welcome to TRIPLE A AHAL GLOBAL CONCEPT</h1>
+  <p>Secure digital & investment platform.</p>
+</div>
 
-  <!-- ================= HEADER / HERO ================= -->
-  <header style="
-    min-height: 100vh;
-    background:
-      linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
-      url('assets/images/background.jpg') center/cover no-repeat;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 20px;
-  ">
-    <div style="max-width: 900px; color: #fff;">
-      <h1 style="font-size: 42px; margin-bottom: 15px;">
-        TRIPLE A AHAL GLOBAL CONCEPT
-      </h1>
-
-      <p style="font-size: 18px; line-height: 1.6; margin-bottom: 30px;">
-        Building secure digital platforms, investment solutions, and innovative
-        technology for Africa and beyond.
-      </p>
-
-      <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
-        <a href="login.html">
-          <button style="padding: 14px 28px;">Login</button>
-        </a>
-
-        <a href="signup.html">
-          <button style="
-            padding: 14px 28px;
-            background: linear-gradient(135deg,#2196F3,#1565C0);
-          ">
-            Create Account
-          </button>
-        </a>
-      </div>
-    </div>
-  </header>
-
-  <!-- ================= ABOUT ================= -->
-  <section>
-    <h2>About TAAGC</h2>
-    <p style="line-height: 1.7; text-align: center;">
-      TAAGC is a global digital and investment platform focused on technology,
-      security, innovation, and financial growth. We connect clients, investors,
-      and partners through trusted systems powered by modern infrastructure.
-    </p>
-  </section>
-
-  <!-- ================= FEATURES ================= -->
-  <section>
-    <h2>Our Core Services</h2>
-
-    <div class="client-grid">
-      <div class="client-card">
-        <h3>🔐 Secure Platform</h3>
-        <p>
-          Role-based access control, verified users, and protected dashboards.
-        </p>
-      </div>
-
-      <div class="client-card">
-        <h3>💳 Client Management</h3>
-        <p>
-          Clients manage profiles, bank details, documents, and investments.
-        </p>
-      </div>
-
-      <div class="client-card">
-        <h3>📈 Investment System</h3>
-        <p>
-          Smart investment tracking, reports, and transparent growth analytics.
-        </p>
-      </div>
-
-      <div class="client-card">
-        <h3>🧑‍💼 Admin & Staff</h3>
-        <p>
-          Admins and staff manage users, audits, approvals, and platform data.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CALL TO ACTION ================= -->
-  <section style="text-align:center;">
-    <h2>Get Started Today</h2>
-    <p style="margin-bottom: 20px;">
-      Join TAAGC and be part of a secure, global digital future.
-    </p>
-
-    <a href="signup.html">
-      <button style="padding: 16px 35px; font-size: 18px;">
-        Create Your Account
-      </button>
-    </a>
-  </section>
-
-  <!-- ================= FOOTER ================= -->
-  <footer style="
-    background:#111;
-    color:#aaa;
-    text-align:center;
-    padding:20px;
-  ">
-    <p>
-      © 2026 TRIPLE A AHAL GLOBAL CONCEPT (TAAGC). All Rights Reserved.
-    </p>
-  </footer>
-  </div>
 <script src="assets/js/sidebar.js"></script>
-
-
 </body>
 </html>
