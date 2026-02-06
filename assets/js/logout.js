@@ -4,5 +4,5 @@ import { signOut } from
 
 window.logout = async () => {
   await signOut(auth);
-  location.href = "../login.html";
+  window.location.href = "../login.html";
 };
