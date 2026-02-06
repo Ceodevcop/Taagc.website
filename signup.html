@@ -1,23 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Signup</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up - TAAGC</title>
   <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-
 <div class="main-content full" id="mainContent">
-  <h2>Create Account</h2>
-
-  <input id="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
-
-  <select id="role">
-    <option value="client">Client</option>
-    <option value="investor">Investor</option>
-  </select>
-
-  <button onclick="signup()">Create Account</button>
+  <div class="card auth-page">
+    <h2>Create Account</h2>
+    <input type="email" id="email" placeholder="Email">
+    <input type="password" id="password" placeholder="Password">
+    <select id="role">
+      <option value="client">Client</option>
+      <option value="investor">Investor</option>
+    </select>
+    <button onclick="signup()">Sign Up</button>
+    <p>Already have an account? <a href="login.html">Login</a></p>
+  </div>
 </div>
 
 <script type="module" src="assets/js/signup.js"></script>
