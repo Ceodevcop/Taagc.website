@@ -2,35 +2,95 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Admin Dashboard - TAAGC</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-  <h1>Admin Dashboard</h1>
 
-  <section>
-    <h2>Edit Staff</h2>
-    <a href="adminClients.html">View Clients</a>
-    <textarea id="jsonEditor" style="width:100%;height:300px"></textarea>
-    <button onclick="saveStaff()">Save Staff</button>
-  </section>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <h2 class="brand">TAAGC</h2>
+  <a href="admin.html">🏠 Dashboard</a>
+  <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
 
-  <section>
-    <h2>Create User</h2>
-    <input id="newUserEmail" placeholder="Email">
-    <select id="newUserRole">
-      <option value="admin">Admin</option>
-      <option value="investor">Investor</option>
-      <option value="client">Client</option>
-    </select>
-    <button onclick="createUser(document.getElementById('newUserEmail').value, document.getElementById('newUserRole').value)">Create User</button>
-  </section>
+<!-- Topbar -->
+<div class="topbar">
+  <button onclick="toggleSidebar()">☰</button>
+</div>
 
-  <!-- Scripts -->
-  <script type="module" src="../assets/js/firebase.js"></script>
-  <script type="module" src="../assets/js/jsonLoader.js"></script>
-  <script type="module" src="../assets/js/admin.js"></script>
-  <script type="module" src="../assets/js/audit.js"></script>
+<div class="main-content" id="mainContent">
+  <h2>Admin Dashboard</h2>
+  <p>Manage users, approve new accounts, and monitor activity.</p>
+
+  <div class="card">
+    <h3>Pending Users for Approval</h3>
+    <div id="pendingUsers">
+      <!-- Dynamically loaded users -->
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Audit Logs</h3>
+    <div id="auditLogs">
+      <!-- Logs will appear here -->
+    </div>
+  </div>
+</div>
+
+<script type="module" src="../assets/js/sidebar.js"></script>
+<script type="module" src="../assets/js/logout.js"></script>
+<script type="module" src="../assets/js/guard.js"></script>
+<script type="module">
+import { auth, db } from "../assets/js/firebase.js";
+import { protectPage } from "../assets/js/guard.js";
+import { collection, getDocs, doc, updateDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+protectPage(["admin"]); // only admin access
+
+const pendingUsersDiv = document.getElementById("pendingUsers");
+const auditLogsDiv = document.getElementById("auditLogs");
+
+async function loadPendingUsers() {
+  pendingUsersDiv.innerHTML = '';
+  const usersSnap = await getDocs(collection(db, "users"));
+  usersSnap.forEach(user => {
+    const data = user.data();
+    if(!data.verified) {
+      const div = document.createElement("div");
+      div.className = "card";
+      div.innerHTML = `
+        <p><strong>${data.email}</strong> | Role: ${data.role}</p>
+        <button onclick="approveUser('${user.id}')">Approve</button>
+      `;
+      pendingUsersDiv.appendChild(div);
+    }
+  });
+}
+
+window.approveUser = async (uid) => {
+  await updateDoc(doc(db, "users", uid), { verified: true });
+  alert("User approved");
+  loadPendingUsers();
+}
+
+async function loadAuditLogs() {
+  auditLogsDiv.innerHTML = '';
+  const logsSnap = await getDocs(collection(db, "auditLogs"));
+  logsSnap.forEach(log => {
+    const data = log.data();
+    const div = document.createElement("div");
+    div.className = "card";
+    div.innerHTML = `<p>${data.timestamp?.toDate() || ''} | ${data.action}</p>`;
+    auditLogsDiv.appendChild(div);
+  });
+}
+
+// Initial load
+loadPendingUsers();
+loadAuditLogs();
+</script>
+
 </body>
 </html>
