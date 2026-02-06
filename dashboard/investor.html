@@ -2,29 +2,82 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Investor Dashboard - TAAGC</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-  <h1>Investor Dashboard</h1>
 
-  <section>
-    <h2>Make Payment</h2>
-    <input id="paymentAmount" type="number" placeholder="Amount in USD">
-    <button onclick="recordPayment(document.getElementById('paymentAmount').value)">Submit Payment</button>
-  </section>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <h2 class="brand">TAAGC</h2>
+  <a href="investor.html">🏠 Dashboard</a>
+  <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
 
-  <section>
-    <h2>My Payments</h2>
-    <ul id="investorPayments"></ul>
-  </section>
+<!-- Topbar -->
+<div class="topbar">
+  <button onclick="toggleSidebar()">☰</button>
+</div>
 
-  <script type="module" src="../assets/js/firebase.js"></script>
-  <script type="module" src="../assets/js/investor.js"></script>
-  <script type="module">
-    import { loadPayments } from "../assets/js/investor.js";
-    loadPayments();
-  </script>
+<div class="main-content" id="mainContent">
+  <h2>Investor Dashboard</h2>
+  <p>View your portfolio, investments, and account details.</p>
+
+  <div class="card">
+    <h3>Your Portfolio</h3>
+    <div id="portfolioList">
+      <!-- Portfolio items loaded here -->
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>Account Info</h3>
+    <div id="accountInfo">
+      <!-- Account info dynamically loaded -->
+    </div>
+  </div>
+</div>
+
+<script type="module" src="../assets/js/sidebar.js"></script>
+<script type="module" src="../assets/js/logout.js"></script>
+<script type="module" src="../assets/js/guard.js"></script>
+<script type="module">
+import { auth, db } from "../assets/js/firebase.js";
+import { protectPage } from "../assets/js/guard.js";
+import { doc, getDoc, collection, getDocs } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+protectPage(["investor"]); // only investor access
+
+const portfolioList = document.getElementById("portfolioList");
+const accountInfo = document.getElementById("accountInfo");
+
+async function loadInvestorData() {
+  const userDoc = await getDoc(doc(db, "investors", auth.currentUser.uid));
+  if(userDoc.exists()) {
+    const data = userDoc.data();
+    accountInfo.innerHTML = `
+      <p>Email: ${auth.currentUser.email}</p>
+      <p>Invested Amount: ${data.totalInvested || 0}</p>
+      <p>Returns: ${data.returns || 0}</p>
+    `;
+    
+    // Portfolio items
+    portfolioList.innerHTML = '';
+    if(data.portfolio) {
+      Object.keys(data.portfolio).forEach(key => {
+        const div = document.createElement('div');
+        div.className = 'card';
+        div.innerHTML = `<p>${key}: ${data.portfolio[key]}</p>`;
+        portfolioList.appendChild(div);
+      });
+    }
+  }
+}
+
+// Initial load
+loadInvestorData();
+</script>
+
 </body>
 </html>
