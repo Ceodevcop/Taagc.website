@@ -42,6 +42,39 @@
 <script type="module" src="../assets/js/sidebar.js"></script>
 <script type="module" src="../assets/js/logout.js"></script>
 <script type="module" src="../assets/js/guard.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<div class="card">
+  <h3>Portfolio Analytics</h3>
+  <canvas id="portfolioChart"></canvas>
+</div>
+
+<script type="module">
+import { auth, db } from "../assets/js/firebase.js";
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
+
+async function loadInvestorPortfolio() {
+  const userDoc = await getDoc(doc(db, "investors", auth.currentUser.uid));
+  if(userDoc.exists()){
+    const data = userDoc.data();
+    const ctx = document.getElementById("portfolioChart").getContext("2d");
+    new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: Object.keys(data.portfolio || {}),
+        datasets: [{
+          label: 'Investments',
+          data: Object.values(data.portfolio || {}),
+          backgroundColor: ['#1976d2','#0d47a1','#64b5f6','#42a5f5','#90caf9']
+        }]
+      }
+    });
+  }
+}
+
+loadInvestorPortfolio();
+</script>
+
 <script type="module">
 import { auth, db } from "../assets/js/firebase.js";
 import { protectPage } from "../assets/js/guard.js";
