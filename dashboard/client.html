@@ -2,29 +2,45 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Client Dashboard - TAAGC</title>
   <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
-  <h1>Client Dashboard</h1>
 
-  <section>
-    <h2>Complete Your Profile</h2>
-    <form id="profileForm" onsubmit="submitProfile(); return false;">
-      <input type="text" id="fullName" placeholder="Full Name" required>
-      <input type="text" id="phone" placeholder="Phone Number" required>
-      <input type="text" id="address" placeholder="Address" required>
-      <input type="text" id="bankName" placeholder="Bank Name" required>
-      <input type="text" id="accountNumber" placeholder="Bank Account Number" required>
-      <label>Profile Picture</label>
-      <input type="file" id="profilePic" accept="image/*" required>
-      <button type="submit">Save Profile</button>
-    </form>
-  </section>
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+  <h2 class="brand">TAAGC</h2>
+  <a href="client.html">🏠 Dashboard</a>
+  <a href="#" onclick="logout()">🚪 Logout</a>
+</div>
 
-  <script type="module" src="../assets/js/firebase.js"></script>
-  <script type="module" src="../assets/js/client.js"></script>
-  <script type="module" src="../assets/js/clientProfile.js"></script>
+<div class="topbar">
+  <button onclick="toggleSidebar()">☰</button>
+</div>
+
+<div class="main-content" id="mainContent">
+  <h2>Client Dashboard</h2>
+  <p>Welcome! Fill your profile and upload your documents below.</p>
+
+  <div class="card">
+    <h3>Personal Information</h3>
+    <input type="text" id="fullName" placeholder="Full Name">
+    <input type="text" id="phone" placeholder="Phone Number">
+    <input type="file" id="profilePhoto">
+    <input type="text" id="bankAccount" placeholder="Bank Account">
+    <button onclick="saveProfile()">Save Profile</button>
+  </div>
+</div>
+
+<script type="module" src="../assets/js/sidebar.js"></script>
+<script type="module" src="../assets/js/guard.js"></script>
+<script type="module" src="../assets/js/profile.js"></script>
+<script type="module" src="../assets/js/logout.js"></script>
+<script type="module">
+  import { protectPage } from "../assets/js/guard.js";
+  protectPage(["client"]);
+</script>
+
 </body>
 </html>
