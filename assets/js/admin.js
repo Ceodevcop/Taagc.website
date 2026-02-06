@@ -1,35 +1,67 @@
 import { db } from "./firebase.js";
-import { doc, getDoc, setDoc, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
+import {
+  collection,
+  getDocs,
+  updateDoc,
+  doc
+} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-const editor = document.getElementById("jsonEditor");
-const staffRef = doc(db, "config", "staff");
+const table = document.getElementById("userTable");
 
-// Load staff from Firestore
-async function loadStaff() {
-  const snap = await getDoc(staffRef);
-  if (snap.exists()) {
-    editor.value = JSON.stringify(snap.data(), null, 2);
-  } else {
-    editor.value = JSON.stringify({ staff: [] }, null, 2);
-  }
+async function loadUsers() {
+  table.innerHTML = "";
+
+  const snap = await getDocs(collection(db, "users"));
+
+  let total = 0, clients = 0, investors = 0;
+
+  snap.forEach(docSnap => {
+    const data = docSnap.data();
+    total++;
+
+    if (data.role === "client") clients++;
+    if (data.role === "investor") investors++;
+
+    const row = document.createElement("tr");
+
+    row.innerHTML = `
+      <td>${data.email || "-"}</td>
+      <td>${data.role}</td>
+      <td>${data.status}</td>
+      <td>
+        <select onchange="changeRole('${docSnap.id}', this.value)">
+          <option value="">--select--</option>
+          <option value="admin">Admin</option>
+          <option value="client">Client</option>
+          <option value="investor">Investor</option>
+        </select>
+      </td>
+      <td>
+        <button onclick="toggleStatus('${docSnap.id}', '${data.status}')">
+          ${data.status === "active" ? "Suspend" : "Activate"}
+        </button>
+      </td>
+    `;
+
+    table.appendChild(row);
+  });
+
+  totalUsers.textContent = total;
+  totalClients.textContent = clients;
+  totalInvestors.textContent = investors;
 }
 
-// Save staff to Firestore
-window.saveStaff = async function () {
-  const data = JSON.parse(editor.value);
-  await setDoc(staffRef, data);
-  alert("Staff updated successfully");
+window.changeRole = async (uid, role) => {
+  if (!role) return;
+  await updateDoc(doc(db, "users", uid), { role });
+  alert("Role updated");
+  loadUsers();
 };
 
-loadStaff();
-
-// Create new user request
-window.createUser = async function (email, role) {
-  await addDoc(collection(db, "userRequests"), {
-    email,
-    role,
-    status: "pending",
-    createdAt: serverTimestamp()
-  });
-  alert("User request created");
+window.toggleStatus = async (uid, status) => {
+  const newStatus = status === "active" ? "suspended" : "active";
+  await updateDoc(doc(db, "users", uid), { status: newStatus });
+  loadUsers();
 };
+
+loadUsers();
