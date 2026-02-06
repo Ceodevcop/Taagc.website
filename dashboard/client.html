@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Client Dashboard - TAAGC</title>
-  <link rel="stylesheet" href="../assets/css/style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Client Dashboard - TAAGC</title>
+<link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
@@ -22,14 +22,17 @@
 
 <div class="main-content" id="mainContent">
   <h2>Client Dashboard</h2>
-  <p>Welcome! Fill your profile and upload your documents below.</p>
+  <p>Fill your profile and upload documents for verification.</p>
 
   <div class="card">
     <h3>Personal Information</h3>
     <input type="text" id="fullName" placeholder="Full Name">
     <input type="text" id="phone" placeholder="Phone Number">
+    <input type="text" id="bankAccount" placeholder="Bank Account Number">
+    <label>Profile Photo</label>
     <input type="file" id="profilePhoto">
-    <input type="text" id="bankAccount" placeholder="Bank Account">
+    <label>Identity Document (KYC)</label>
+    <input type="file" id="kycDocument">
     <button onclick="saveProfile()">Save Profile</button>
   </div>
 </div>
@@ -39,8 +42,8 @@
 <script type="module" src="../assets/js/logout.js"></script>
 <script type="module" src="../assets/js/guard.js"></script>
 <script type="module">
-  import { protectPage } from "../assets/js/guard.js";
-  protectPage(["client"]);
+import { protectPage } from "../assets/js/guard.js";
+protectPage(["client"]);
 </script>
 
 </body>
