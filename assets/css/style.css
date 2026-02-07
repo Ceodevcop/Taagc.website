@@ -131,4 +131,67 @@ body {
   .main-content {
     margin-left: 0;
   }
+}body {
+  margin: 0;
+  font-family: "Inter", sans-serif;
+  background: #0f172a;
+  color: #e5e7eb;
 }
+
+.sidebar {
+  position: fixed;
+  width: 240px;
+  height: 100%;
+  background: #020617;
+  padding: 20px;
+  transform: translateX(-100%);
+  transition: .3s;
+}
+
+.sidebar.open {
+  transform: translateX(0);
+}
+
+.sidebar h2 {
+  color: #38bdf8;
+}
+
+.sidebar a {
+  display: block;
+  color: #cbd5f5;
+  text-decoration: none;
+  padding: 10px 0;
+}
+
+#menuToggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  font-size: 22px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+}
+
+.main {
+  padding: 80px 20px 20px 20px;
+}
+
+.hero {
+  background-size: cover;
+  background-position: center;
+  border-radius: 16px;
+  padding: 60px;
+  margin-bottom: 30px;
+}
+
+.hero h1 {
+  font-size: 2.5rem;
+}
+
+.section {
+  max-width: 900px;
+  line-height: 1.7;
+}
+
