@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>General Agriculture | TAAGC</title>
+  <link rel="stylesheet" href="/assets/css/style.css">
+</head>
+<body>
+
+<div id="sidebar-container"></div>
+
+<main class="main">
+  <section class="hero" style="background-image:url('/assets/images/business/agriculture.jpg')">
+    <h1>🌾 General Agriculture</h1>
+    <p>Driving food security and sustainable farming</p>
+  </section>
+
+  <section class="section">
+    <p>
+      TAAGC operates across crop production, livestock support,
+      agricultural supply chains, and sustainable farming solutions.
+    </p>
+
+    <ul>
+      <li>Crop cultivation & farm management</li>
+      <li>Agro-input supply</li>
+      <li>Large & small-scale farming</li>
+      <li>Sustainable agriculture practices</li>
+    </ul>
+  </section>
+</main>
+
+<script type="module" src="/js/app.js"></script>
+<script>
+  fetch("/components/sidebar.html")
+    .then(res => res.text())
+    .then(html => document.getElementById("sidebar-container").innerHTML = html);
+</script>
+
+</body>
+</html>
