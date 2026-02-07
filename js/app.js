@@ -105,6 +105,7 @@ async function updateProfile(data) {
 /* ==============================
    SIDEBAR
 ================================ */
+initSidebar();
 function initSidebar() {
   const btn = qs("menuToggle");
   const sidebar = qs("sidebar");
