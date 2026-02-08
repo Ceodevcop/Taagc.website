@@ -1,50 +1,72 @@
+<!-- dashboard/client.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Client Dashboard - TAAGC</title>
-<link rel="stylesheet" href="../assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Dashboard - TAAGC</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<!-- Sidebar -->
-<div class="sidebar" id="sidebar">
-  <h2 class="brand">TAAGC</h2>
-  <a href="client.html">🏠 Dashboard</a>
-  <a href="#" onclick="logout()">🚪 Logout</a>
-</div>
-
-<!-- Topbar -->
-<div class="topbar">
-  <button onclick="toggleSidebar()">☰</button>
-</div>
-
-<div class="main-content" id="mainContent">
-  <h2>Client Dashboard</h2>
-  <p>Fill your profile and upload documents for verification.</p>
-
-  <div class="card">
-    <h3>Personal Information</h3>
-    <input type="text" id="fullName" placeholder="Full Name">
-    <input type="text" id="phone" placeholder="Phone Number">
-    <input type="text" id="bankAccount" placeholder="Bank Account Number">
-    <label>Profile Photo</label>
-    <input type="file" id="profilePhoto">
-    <label>Identity Document (KYC)</label>
-    <input type="file" id="kycDocument">
-    <button onclick="saveProfile()">Save Profile</button>
-  </div>
-</div>
-
-<script type="module" src="../assets/js/sidebar.js"></script>
-<script type="module" src="../assets/js/profile.js"></script>
-<script type="module" src="../assets/js/logout.js"></script>
-<script type="module" src="../assets/js/guard.js"></script>
-<script type="module">
-import { protectPage } from "../assets/js/guard.js";
-protectPage(["client"]);
-</script>
-
-</body>
-</html>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="user-details">
+                        <h3 id="userName">Client User</h3>
+                        <p>Client Account</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
+                    <li><a href="#"><i class="fas fa-seedling"></i> Agriculture Projects</a></li>
+                    <li><a href="#"><i class="fas fa-wheat-awn"></i> Grain Processing</a></li>
+                    <li><a href="#"><i class="fas fa-laptop-code"></i> ICT Services</a></li>
+                    <li><a href="#"><i class="fas fa-file-contract"></i> My Contracts</a></li>
+                    <li><a href="#"><i class="fas fa-shopping-cart"></i> Merchandise Orders</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Reports</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Account Settings</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="sidebar-link"><i class="fas fa-home"></i> Back to Website</a>
+                <a href="#" id="logoutBtn" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <h1>Client Dashboard</h1>
+                    <p>Welcome back! Here's an overview of your TAAGC account.</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-display">
+                        <span id="currentDate"></span>
+                    </div>
+                    <button class="mobile-menu-btn" id="dashboardMenuBtn">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </header>
+            
+            <div class="dashboard-content">
+                <!-- Stats Overview -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i class="fas fa-project-diagram"></i>
+                        </div>
+                        <div class
