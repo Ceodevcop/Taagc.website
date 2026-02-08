@@ -1,153 +1,97 @@
-/* ==============================
-   FIREBASE CONFIG
-================================ */
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-import {
-  getAuth,
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut,
-  onAuthStateChanged
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
-import {
-  getFirestore,
-  doc,
-  getDoc,
-  setDoc,
-  updateDoc
-} from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+// js/app.js
+// Main application JavaScript
 
-const firebaseConfig = {
-  apiKey: "YOUR_API_KEY",
-  authDomain: "xtaagc.firebaseapp.com",
-  projectId: "xtaagc"
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = getFirestore(app);
-
-/* ==============================
-   GLOBAL HELPERS
-================================ */
-function qs(id) {
-  return document.getElementById(id);
-}
-
-function redirect(path) {
-  window.location.href = path;
-}
-
-/* ==============================
-   LOGIN
-================================ */
-async function login(email, password) {
-  const cred = await signInWithEmailAndPassword(auth, email, password);
-  const uid = cred.user.uid;
-
-  const snap = await getDoc(doc(db, "users", uid));
-  if (!snap.exists()) throw "User role not assigned";
-
-  const role = snap.data().role;
-
-  if (role === "admin") redirect("/admin/dashboard.html");
-  else if (role === "investor") redirect("/investor/dashboard.html");
-  else redirect("/client/dashboard.html");
-}
-
-/* ==============================
-   SIGNUP
-================================ */
-async function signup(email, password, role = "client") {
-  const cred = await createUserWithEmailAndPassword(auth, email, password);
-  await setDoc(doc(db, "users", cred.user.uid), {
-    email,
-    role,
-    createdAt: new Date()
-  });
-  redirect("/login.html");
-}
-
-/* ==============================
-   AUTH GUARD
-================================ */
-function requireAuth(requiredRole = null) {
-  onAuthStateChanged(auth, async (user) => {
-    if (!user) redirect("/login.html");
-
-    if (requiredRole) {
-      const snap = await getDoc(doc(db, "users", user.uid));
-      if (!snap.exists() || snap.data().role !== requiredRole) {
-        redirect("/login.html");
-      }
+document.addEventListener('DOMContentLoaded', function() {
+    // Initialize mobile menu
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebarOverlay');
+    const closeSidebar = document.getElementById('closeSidebar');
+    
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', function() {
+            sidebar.classList.add('active');
+            sidebarOverlay.classList.add('active');
+        });
     }
-  });
-}
-
-/* ==============================
-   LOGOUT
-================================ */
-async function logout() {
-  await signOut(auth);
-  redirect("/login.html");
-}
-
-/* ==============================
-   PROFILE UPDATE (CLIENT)
-================================ */
-async function updateProfile(data) {
-  const user = auth.currentUser;
-  if (!user) return;
-  await updateDoc(doc(db, "users", user.uid), data);
-  alert("Profile updated");
-}
-
-/* ==============================
-   SIDEBAR
-================================ */
-initSidebar();
-function initSidebar() {
-  const btn = qs("menuToggle");
-  const sidebar = qs("sidebar");
-  if (btn && sidebar) {
-    btn.onclick = () => sidebar.classList.toggle("open");
-  }
-}
-
-/* ==============================
-   PAGE AUTO-DETECT
-================================ */
-document.addEventListener("DOMContentLoaded", () => {
-  initSidebar();
-
-  if (qs("loginForm")) {
-    qs("loginForm").onsubmit = (e) => {
-      e.preventDefault();
-      login(qs("email").value, qs("password").value)
-        .catch(err => alert(err));
-    };
-  }
-
-  if (qs("signupForm")) {
-    qs("signupForm").onsubmit = (e) => {
-      e.preventDefault();
-      signup(qs("email").value, qs("password").value);
-    };
-  }
-
-  if (qs("logoutBtn")) {
-    qs("logoutBtn").onclick = logout;
-  }
+    
+    if (closeSidebar) {
+        closeSidebar.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        });
+    }
+    
+    if (sidebarOverlay) {
+        sidebarOverlay.addEventListener('click', function() {
+            sidebar.classList.remove('active');
+            sidebarOverlay.classList.remove('active');
+        });
+    }
+    
+    // Handle dropdown menus
+    const dropdowns = document.querySelectorAll('.dropdown');
+    
+    dropdowns.forEach(dropdown => {
+        const trigger = dropdown.querySelector('a');
+        
+        trigger.addEventListener('click', function(e) {
+            if (window.innerWidth <= 768) {
+                e.preventDefault();
+                dropdown.classList.toggle('active');
+            }
+        });
+    });
+    
+    // Set active nav link based on current page
+    const currentPage = window.location.pathname.split('/').pop();
+    const navLinks = document.querySelectorAll('.nav-links a, .sidebar-links a');
+    
+    navLinks.forEach(link => {
+        const linkPage = link.getAttribute('href').split('/').pop();
+        
+        if (linkPage === currentPage || 
+            (currentPage === '' && linkPage === 'index.html') ||
+            (currentPage === 'index.html' && linkPage === '')) {
+            link.classList.add('active');
+        } else {
+            link.classList.remove('active');
+        }
+    });
+    
+    // Handle FAQ accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', () => {
+            const item = question.parentNode;
+            const answer = question.nextElementSibling;
+            
+            // Close other open items
+            faqQuestions.forEach(otherQuestion => {
+                if (otherQuestion !== question) {
+                    const otherItem = otherQuestion.parentNode;
+                    const otherAnswer = otherQuestion.nextElementSibling;
+                    
+                    otherItem.classList.remove('active');
+                    otherAnswer.style.maxHeight = null;
+                    otherQuestion.querySelector('i').classList.remove('fa-chevron-up');
+                    otherQuestion.querySelector('i').classList.add('fa-chevron-down');
+                }
+            });
+            
+            // Toggle current item
+            item.classList.toggle('active');
+            
+            if (item.classList.contains('active')) {
+                answer.style.maxHeight = answer.scrollHeight + 'px';
+                question.querySelector('i').classList.remove('fa-chevron-down');
+                question.querySelector('i').classList.add('fa-chevron-up');
+            } else {
+                answer.style.maxHeight = null;
+                question.querySelector('i').classList.remove('fa-chevron-up');
+                question.querySelector('i').classList.add('fa-chevron-down');
+            }
+        });
+    });
 });
-
-/* ==============================
-   EXPORTS (OPTIONAL)
-================================ */
-window.TAAGC = {
-  login,
-  signup,
-  logout,
-  requireAuth,
-  updateProfile
-};
-               
