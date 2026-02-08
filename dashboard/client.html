@@ -69,4 +69,168 @@
                         <div class="stat-icon primary">
                             <i class="fas fa-project-diagram"></i>
                         </div>
-                        <div class
+                        <div class="stat-info">
+                            <h3>5</h3>
+                            <p>Active Projects</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon secondary">
+                            <i class="fas fa-file-contract"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>12</h3>
+                            <p>Active Contracts</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-icon success">
+                            <i class="fas fa-shopping-cart"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>8</h3>
+                            <p>Pending Orders</p>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-card">
+                        <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <h3>3</h3>
+                            <p>Pending Approvals</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Recent Activity -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Recent Activity</h2>
+                        <a href="#" class="view-all">View All</a>
+                    </div>
+                    
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon success">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Agriculture Project Approved</h4>
+                                <p>Your wheat cultivation project in Region A has been approved and is now active.</p>
+                                <span class="activity-time">2 hours ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon primary">
+                                <i class="fas fa-file-upload"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Contract Submitted</h4>
+                                <p>You submitted a new contract for grain processing services. Awaiting review.</p>
+                                <span class="activity-time">1 day ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon warning">
+                                <i class="fas fa-exclamation-circle"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>Order Requires Action</h4>
+                                <p>Your merchandise order #TAAGC-2023-087 needs additional information to proceed.</p>
+                                <span class="activity-time">2 days ago</span>
+                            </div>
+                        </div>
+                        
+                        <div class="activity-item">
+                            <div class="activity-icon info">
+                                <i class="fas fa-info-circle"></i>
+                            </div>
+                            <div class="activity-details">
+                                <h4>ICT Service Update</h4>
+                                <p>Your requested software update has been completed. Please test the new features.</p>
+                                <span class="activity-time">3 days ago</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Quick Actions -->
+                <div class="dashboard-section">
+                    <div class="section-header">
+                        <h2>Quick Actions</h2>
+                    </div>
+                    
+                    <div class="quick-actions">
+                        <a href="#" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h4>New Project</h4>
+                            <p>Start a new agriculture or business project</p>
+                        </a>
+                        
+                        <a href="#" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-file-signature"></i>
+                            </div>
+                            <h4>Request Contract</h4>
+                            <p>Submit a new contract request</p>
+                        </a>
+                        
+                        <a href="#" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <h4>Place Order</h4>
+                            <p>Order merchandise or services</p>
+                        </a>
+                        
+                        <a href="#" class="action-card">
+                            <div class="action-icon">
+                                <i class="fas fa-question-circle"></i>
+                            </div>
+                            <h4>Get Support</h4>
+                            <p>Contact our support team</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <script src="../js/app.js"></script>
+    <script src="../js/dashboard.js"></script>
+    <script src="../js/logout.js"></script>
+    <script>
+        // Set current date
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = now.toLocaleDateString('en-US', options);
+            
+            // Load user data from localStorage
+            const userData = JSON.parse(localStorage.getItem('taagc_user_data'));
+            if (userData) {
+                document.getElementById('userName').textContent = `${userData.firstName} ${userData.lastName}`;
+            }
+            
+            // Mobile menu for dashboard
+            const menuBtn = document.getElementById('dashboardMenuBtn');
+            const sidebar = document.querySelector('.dashboard-sidebar');
+            
+            if (menuBtn) {
+                menuBtn.addEventListener('click', function() {
+                    sidebar.classList.toggle('mobile-open');
+                });
+            }
+        });
+    </script>
+</body>
+    </html>
