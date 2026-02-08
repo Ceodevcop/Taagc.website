@@ -1,13 +1,104 @@
-<aside class="sidebar">
-  <h2>TAAGC</h2>
-  <a href="/index.html">🏠 Home</a>
-  <a href="/business/agriculture.html">🌾 Agriculture</a>
-  <a href="/business/grain-processing.html">🌽 Grain Processing</a>
-  <a href="/business/ict.html">💻 ICT</a>
-  <a href="/business/contract.html">🏗️ Contracts</a>
-  <a href="/business/merchandise.html">🛒 Merchandise</a>
-  <hr>
-  <a href="/dashboard/admin.html">🛠️ Admin</a>
-  <a href="/dashboard/client.html">👤 Client</a>
-  <a href="#" id="logoutBtn">🚪 Logout</a>
+<!-- components/sidebar.html -->
+<div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <div class="sidebar-logo">
+            <h2>TAAGC</h2>
+            <p>Menu</p>
+        </div>
+        <button class="close-sidebar" id="closeSidebar">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <ul class="sidebar-links">
+        <li><a href="index.html"><i class="fas fa-home"></i> Home</a></li>
+        
+        <li class="sidebar-section">
+            <span class="section-title"><i class="fas fa-briefcase"></i> Business Divisions</span>
+            <ul class="sidebar-submenu">
+                <li><a href="business/agriculture.html"><i class="fas fa-seedling"></i> Agriculture</a></li>
+                <li><a href="business/grain-processing.html"><i class="fas fa-wheat-awn"></i> Grain Processing</a></li>
+                <li><a href="business/ict.html"><i class="fas fa-laptop-code"></i> ICT Solutions</a></li>
+                <li><a href="business/contract.html"><i class="fas fa-file-contract"></i> Contract Services</a></li>
+                <li><a href="business/merchandise.html"><i class="fas fa-globe"></i> Global Merchandise</a></li>
+            </ul>
+        </li>
+        
+        <li><a href="contact.html"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="login.html"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li><a href="signup.html"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+        
+        <li class="sidebar-section">
+            <span class="section-title"><i class="fas fa-tachometer-alt"></i> Dashboards</span>
+            <ul class="sidebar-submenu">
+                <li><a href="dashboard/client.html"><i class="fas fa-user"></i> Client Dashboard</a></li>
+                <li><a href="dashboard/investor.html"><i class="fas fa-chart-line"></i> Investor Dashboard</a></li>
+                <li><a href="dashboard/admin.html"><i class="fas fa-cog"></i> Admin Dashboard</a></li>
+            </ul>
+        </li>
+    </ul>
+    
+    <div class="sidebar-footer">
+        <div class="sidebar-contact">
+            <p><i class="fas fa-phone"></i> +1 (234) 567-8900</p>
+            <p><i class="fas fa-envelope"></i> info@taagc.com</p>
+        </div>
+    </div>
 </aside>
+
+<style>
+    .sidebar-section {
+        margin-top: 20px;
+    }
+    
+    .section-title {
+        display: flex;
+        align-items: center;
+        padding: 10px 15px;
+        color: var(--gray-color);
+        font-size: 0.9rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+    
+    .section-title i {
+        margin-right: 10px;
+    }
+    
+    .sidebar-submenu {
+        list-style: none;
+        padding-left: 20px;
+    }
+    
+    .sidebar-submenu li {
+        margin-bottom: 5px;
+    }
+    
+    .sidebar-submenu a {
+        padding: 8px 15px;
+        font-size: 0.95rem;
+    }
+    
+    .sidebar-footer {
+        margin-top: 40px;
+        padding-top: 20px;
+        border-top: 1px solid var(--light-gray);
+    }
+    
+    .sidebar-contact p {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        color: var(--gray-color);
+        font-size: 0.9rem;
+    }
+    
+    .sidebar-contact i {
+        margin-right: 10px;
+        color: var(--primary-color);
+        width: 20px;
+    }
+</style>
