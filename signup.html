@@ -1,84 +1,147 @@
+<!-- signup.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sign Up - TAAGC</title>
-  <link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - TAAGC</title>
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/auth.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
-<body><!-- SIDEBAR -->
-<div class="sidebar" id="sidebar">
-  <h2 class="brand">TAAGC</h2>
-
-  <a href="/index.html">🏠 Home</a>
-  <a href="/login.html">🔐 Login</a>
-  <a href="/signup.html">📝 Sign Up</a>
-
-  <hr>
-
-  <p class="nav-title">Business Nature</p>
-  <a href="#">🌾 General Agriculture</a>
-  <a href="#">🌽 Grain Processing</a>
-  <a href="#">💻 ICT</a>
-  <a href="#">🏗️ General Contract</a>
-  <a href="#">🛒 General Merchandise</a>
-
-  <hr>
-
-  <a href="#" onclick="logout()">🚪 Logout</a>
-</div>
-
-<!-- TOP BAR -->
-<div class="topbar">
-  <button onclick="toggleSidebar()">☰</button>
-  <span>TAAGC Global Platform</span>
-</div>
-  
-<div class="main-content full" id="mainContent">
-  <div class="card">
-    <h2>Create Your Account</h2>
-
-    <input type="email" id="email" placeholder="Email" required>
-    <input type="password" id="password" placeholder="Password" required>
-    <select id="role">
-      <option value="client">Client</option>
-      <option value="investor">Investor</option>
-    </select>
-
-    <button onclick="signup()">Sign Up</button>
-    <p>Already have an account? <a href="login.html">Login</a></p>
-  </div>
-</div>
-
-<script type="module">
-import { auth, db } from './assets/js/firebase.js';
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js";
-
-window.signup = async () => {
-  const email = document.getElementById('email').value;
-  const password = document.getElementById('password').value;
-  const role = document.getElementById('role').value;
-
-  try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    const user = userCredential.user;
-
-    await setDoc(doc(db, "users", user.uid), {
-      email,
-      role,
-      verified: false,
-      createdAt: new Date()
-    });
-
-    alert("Account created! Please wait for admin approval.");
-    window.location.href = "login.html";
-  } catch (error) {
-    alert(error.message);
-  }
-};
-</script>
-  <script type="module" src="js/app.js"></script>
-
+<body>
+    <div id="topnav-container"></div>
+    <div id="sidebar-container"></div>
+    
+    <div class="main-content">
+        <div class="auth-container">
+            <div class="auth-card">
+                <div class="auth-header">
+                    <h2>Create Account</h2>
+                    <p>Join the TAAGC network today</p>
+                </div>
+                
+                <form id="signupForm" class="auth-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="firstName">First Name</label>
+                            <input type="text" id="firstName" name="firstName" placeholder="Enter first name" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="lastName">Last Name</label>
+                            <input type="text" id="lastName" name="lastName" placeholder="Enter last name" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-envelope"></i>
+                            <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone">Phone Number</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-phone"></i>
+                            <input type="tel" id="phone" name="phone" placeholder="Enter phone number" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="password" name="password" placeholder="Create a password" required>
+                        </div>
+                        <div class="password-hint">
+                            <p>Must be at least 8 characters with uppercase, lowercase, and a number</p>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword">Confirm Password</label>
+                        <div class="input-with-icon">
+                            <i class="fas fa-lock"></i>
+                            <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm your password" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="accountType">Account Type</label>
+                        <select id="accountType" name="accountType" required>
+                            <option value="" disabled selected>Select account type</option>
+                            <option value="client">Client</option>
+                            <option value="investor">Investor</option>
+                            <option value="partner">Business Partner</option>
+                            <option value="supplier">Supplier</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="businessInterest">Primary Business Interest</label>
+                        <select id="businessInterest" name="businessInterest" required>
+                            <option value="" disabled selected>Select interest area</option>
+                            <option value="agriculture">Agriculture</option>
+                            <option value="grain-processing">Grain Processing</option>
+                            <option value="ict">ICT Solutions</option>
+                            <option value="contract">Contract Services</option>
+                            <option value="merchandise">Global Merchandise</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group terms">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <label for="terms">I agree to the <a href="#">Terms of Service</a> and <a href="#">Privacy Policy</a></label>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary btn-block">Create Account</button>
+                </form>
+                
+                <div class="auth-footer">
+                    <p>Already have an account? <a href="login.html">Login here</a></p>
+                    <p><a href="index.html"><i class="fas fa-arrow-left"></i> Back to Home</a></p>
+                </div>
+            </div>
+            
+            <div class="auth-info">
+                <h2>Why Join TAAGC?</h2>
+                <p>Become part of our global network and unlock exclusive benefits:</p>
+                <ul class="auth-features">
+                    <li><i class="fas fa-check-circle"></i> Access to premium agricultural resources</li>
+                    <li><i class="fas fa-check-circle"></i> Priority grain processing slots</li>
+                    <li><i class="fas fa-check-circle"></i> Custom ICT solutions for your business</li>
+                    <li><i class="fas fa-check-circle"></i> Global merchandise trading opportunities</li>
+                    <li><i class="fas fa-check-circle"></i> Exclusive contract service offerings</li>
+                    <li><i class="fas fa-check-circle"></i> Investment opportunities with high returns</li>
+                    <li><i class="fas fa-check-circle"></i> Dedicated account manager</li>
+                    <li><i class="fas fa-check-circle"></i> Networking with global partners</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <script src="js/app.js"></script>
+    <script src="js/sidebar.js"></script>
+    <script src="js/auth.js"></script>
+    <script>
+        // Load components
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('components/topnav.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('topnav-container').innerHTML = data;
+                });
+            
+            fetch('components/sidebar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('sidebar-container').innerHTML = data;
+                });
+        });
+    </script>
 </body>
-</html>
+                                                                     </html>
