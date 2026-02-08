@@ -1,40 +1,145 @@
+<!-- business/agriculture.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>General Agriculture | TAAGC</title>
-  <link rel="stylesheet" href="/assets/css/style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agriculture - TAAGC</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/business.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-
-<div id="sidebar-container"></div>
-
-<main class="main">
-  <section class="hero" style="background-image:url('/assets/images/business/agriculture.jpg')">
-    <h1>🌾 General Agriculture</h1>
-    <p>Driving food security and sustainable farming</p>
-  </section>
-
-  <section class="section">
-    <p>
-      TAAGC operates across crop production, livestock support,
-      agricultural supply chains, and sustainable farming solutions.
-    </p>
-
-    <ul>
-      <li>Crop cultivation & farm management</li>
-      <li>Agro-input supply</li>
-      <li>Large & small-scale farming</li>
-      <li>Sustainable agriculture practices</li>
-    </ul>
-  </section>
-</main>
-
-<script type="module" src="/js/app.js"></script>
-<script>
-  fetch("/components/sidebar.html")
-    .then(res => res.text())
-    .then(html => document.getElementById("sidebar-container").innerHTML = html);
-</script>
-
+    <div id="topnav-container"></div>
+    <div id="sidebar-container"></div>
+    
+    <div class="main-content">
+        <section class="business-hero agriculture-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="../index.html">Home</a> / <a href="#">Business</a> / <span>Agriculture</span>
+                </div>
+                <h1>Agriculture Division</h1>
+                <p class="hero-subtitle">Modern farming solutions for sustainable food production and agricultural development</p>
+            </div>
+        </section>
+        
+        <section class="business-overview">
+            <div class="container">
+                <div class="overview-content">
+                    <div class="overview-text">
+                        <h2>Transforming Agriculture Through Innovation</h2>
+                        <p>TAAGC's Agriculture Division leverages cutting-edge technology and sustainable practices to revolutionize food production. We bridge traditional farming knowledge with modern agricultural science to increase yields, improve quality, and ensure food security for communities worldwide.</p>
+                        <p>Our comprehensive agricultural services span from soil analysis and crop selection to harvest management and distribution, providing end-to-end solutions for farmers, agribusinesses, and governments.</p>
+                        
+                        <div class="key-stats">
+                            <div class="key-stat">
+                                <h3>50,000+</h3>
+                                <p>Acres Under Management</p>
+                            </div>
+                            <div class="key-stat">
+                                <h3>30%</h3>
+                                <p>Average Yield Increase</p>
+                            </div>
+                            <div class="key-stat">
+                                <h3>15</h3>
+                                <p>Countries Served</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="overview-image">
+                        <img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1000&q=80" alt="TAAGC Agriculture">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="services-details">
+            <div class="container">
+                <h2>Our Agricultural Services</h2>
+                
+                <div class="services-grid">
+                    <div class="service-detail">
+                        <div class="service-icon">
+                            <i class="fas fa-tint"></i>
+                        </div>
+                        <h3>Smart Irrigation Systems</h3>
+                        <p>Precision irrigation technology that conserves water while ensuring optimal crop hydration. Our systems use sensors and data analytics to deliver water exactly where and when it's needed.</p>
+                    </div>
+                    
+                    <div class="service-detail">
+                        <div class="service-icon">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                        <h3>Crop Management</h3>
+                        <p>Comprehensive crop planning, monitoring, and management services. We help select the right crops for specific soil and climate conditions and provide ongoing support throughout the growth cycle.</p>
+                    </div>
+                    
+                    <div class="service-detail">
+                        <div class="service-icon">
+                            <i class="fas fa-dna"></i>
+                        </div>
+                        <h3>Seed Technology</h3>
+                        <p>Access to high-yield, disease-resistant seed varieties. Our seed technology programs focus on developing crops that thrive in challenging environments while maintaining nutritional value.</p>
+                    </div>
+                    
+                    <div class="service-detail">
+                        <div class="service-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Agricultural Robotics</h3>
+                        <p>Automated solutions for planting, weeding, and harvesting. Our robotic systems increase efficiency while reducing labor costs and human error in agricultural operations.</p>
+                    </div>
+                    
+                    <div class="service-detail">
+                        <div class="service-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Data Analytics</h3>
+                        <p>Advanced data collection and analysis for predictive insights. We help farmers make data-driven decisions about planting, fertilization, pest control, and harvesting for maximum yield.</p>
+                    </div>
+                    
+                    <div class="service-detail">
+                        <div class="service-icon">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Supply Chain Management</h3>
+                        <p>End-to-end logistics and distribution services. We ensure harvested crops reach markets efficiently while maintaining quality and reducing post-harvest losses.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="cta-section business-cta">
+            <div class="container">
+                <h2>Ready to Transform Your Agricultural Operations?</h2>
+                <p>Contact our agricultural experts to discuss how TAAGC can help increase your yields, improve sustainability, and grow your agricultural business.</p>
+                <div class="cta-buttons">
+                    <a href="../contact.html" class="btn btn-primary">Contact Agriculture Team</a>
+                    <a href="../signup.html" class="btn btn-secondary">Become an Agricultural Partner</a>
+                </div>
+            </div>
+        </section>
+    </div>
+    
+    <script src="../js/app.js"></script>
+    <script src="../js/sidebar.js"></script>
+    <script>
+        // Load components
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('../components/topnav.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('topnav-container').innerHTML = data;
+                });
+            
+            fetch('../components/sidebar.html')
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById('sidebar-container').innerHTML = data;
+                });
+        });
+    </script>
 </body>
-</html>
+  </html>
