@@ -1,53 +1,352 @@
-// js/sidebar.js - Fixed for mobile responsiveness
-document.addEventListener('DOMContentLoaded', function() {
-    // Initialize mobile menu
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const sidebar = document.getElementById('sidebar');
-    const sidebarOverlay = document.getElementById('sidebarOverlay');
-    const closeSidebar = document.getElementById('closeSidebar');
-    
-    if (mobileMenuBtn) {
-        mobileMenuBtn.addEventListener('click', function() {
-            sidebar.classList.add('active');
-            sidebarOverlay.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling when sidebar is open
-        });
-    }
-    
-    if (closeSidebar) {
-        closeSidebar.addEventListener('click', function() {
-            sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
-        });
-    }
-    
-    if (sidebarOverlay) {
-        sidebarOverlay.addEventListener('click', function() {
-            sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
-        });
-    }
-    
-    // Close sidebar when clicking on a link (for mobile)
-    const sidebarLinks = document.querySelectorAll('.sidebar-links a');
-    sidebarLinks.forEach(link => {
-        link.addEventListener('click', function() {
-            if (window.innerWidth <= 768) {
-                sidebar.classList.remove('active');
-                sidebarOverlay.classList.remove('active');
-                document.body.style.overflow = ''; // Restore scrolling
-            }
-        });
-    });
-    
-    // Handle window resize
-    window.addEventListener('resize', function() {
-        if (window.innerWidth > 768) {
-            sidebar.classList.remove('active');
-            sidebarOverlay.classList.remove('active');
-            document.body.style.overflow = ''; // Restore scrolling
-        }
-    });
-});
+<!-- dashboard/dashboard.html - Main Dashboard Page -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TAAGC Project Dashboard</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/dashboard.css">
+    <link rel="stylesheet" href="../assets/css/project-dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="dashboard-sidebar">
+            <div class="sidebar-header">
+                <div class="user-info">
+                    <div class="user-avatar">
+                        <img src="https://ui-avatars.com/api/?name=Sabina+Saetgareeva&background=2c5530&color=fff" alt="User Avatar">
+                    </div>
+                    <div class="user-details">
+                        <h3 id="userName">Sabina Saetgareeva</h3>
+                        <p>Project Manager</p>
+                    </div>
+                </div>
+            </div>
+            
+            <nav class="dashboard-nav">
+                <ul>
+                    <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Home</a></li>
+                    <li><a href="#"><i class="fas fa-tasks"></i> My Tasks</a></li>
+                    <li><a href="#"><i class="fas fa-file-alt"></i> Recent Docs</a></li>
+                    <li><a href="#"><i class="fas fa-clipboard-list"></i> My Forms</a></li>
+                    <li><a href="#"><i class="fas fa-briefcase"></i> Resources</a></li>
+                    <li><a href="#"><i class="fas fa-calendar-alt"></i> Meetings</a></li>
+                    <li><a href="#"><i class="fas fa-chart-line"></i> Team Progress</a></li>
+                    <li><a href="#"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <a href="../index.html" class="sidebar-link"><i class="fas fa-globe"></i> TAAGC Website</a>
+                <a href="#" id="logoutBtn" class="sidebar-link"><i class="fas fa-sign-out-alt"></i> Logout</a>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="dashboard-main">
+            <header class="dashboard-header">
+                <div class="header-left">
+                    <h1>Welcome, Sabina</h1>
+                    <p>What do you need help with today?</p>
+                </div>
+                <div class="header-right">
+                    <div class="date-display">
+                        <span id="currentDate"></span>
+                    </div>
+                    <div class="header-actions">
+                        <button class="btn-icon" title="Notifications">
+                            <i class="fas fa-bell"></i>
+                            <span class="badge">3</span>
+                        </button>
+                        <button class="btn-icon" title="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <button class="mobile-menu-btn" id="dashboardMenuBtn">
+                            <i class="fas fa-bars"></i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <div class="dashboard-content">
+                <!-- My Tasks Section -->
+                <section class="dashboard-section">
+                    <div class="section-header">
+                        <h2><i class="fas fa-tasks"></i> My Tasks</h2>
+                        <button class="btn btn-outline btn-sm"><i class="fas fa-plus"></i> Add task</button>
+                    </div>
+                    <div class="tasks-list">
+                        <div class="task-item">
+                            <label class="task-checkbox">
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="task-details">
+                                <h4>Create a SharePoint team site for product department</h4>
+                                <div class="task-meta">
+                                    <span class="task-assignee">Sabina Saetgareeva</span>
+                                    <span class="task-date">Due tomorrow</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <span class="priority high">High</span>
+                                <button class="btn-icon"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </div>
+                        
+                        <div class="task-item">
+                            <label class="task-checkbox">
+                                <input type="checkbox" checked>
+                                <span class="checkmark"></span>
+                            </label>
+                            <div class="task-details">
+                                <h4 class="completed">Build "Hit Timestamp" analytics dimension for GA4</h4>
+                                <div class="task-meta">
+                                    <span class="task-assignee">Sabina Saetgareeva</span>
+                                    <span class="task-date">Completed today</span>
+                                </div>
+                            </div>
+                            <div class="task-actions">
+                                <span class="priority medium">Medium</span>
+                                <button class="btn-icon"><i class="fas fa-ellipsis-v"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                
+                <!-- Recent Docs & My Forms -->
+                <div class="dashboard-columns">
+                    <div class="column">
+                        <section class="dashboard-section">
+                            <div class="section-header">
+                                <h2><i class="fas fa-file-alt"></i> Recent Docs</h2>
+                            </div>
+                            <div class="docs-list">
+                                <a href="#" class="doc-item">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-file-word"></i>
+                                    </div>
+                                    <div class="doc-details">
+                                        <h4>Latest_Top 21 SharePoint Features...</h4>
+                                        <p>sites ... ... .com Your Intranet</p>
+                                    </div>
+                                </a>
+                                
+                                <a href="#" class="doc-item">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-file-powerpoint"></i>
+                                    </div>
+                                    <div class="doc-details">
+                                        <h4>Top 21 SharePoint Features You S...</h4>
+                                        <p>sites ... ... .com Your Intranet</p>
+                                    </div>
+                                </a>
+                                
+                                <a href="#" class="doc-item">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-file-pdf"></i>
+                                    </div>
+                                    <div class="doc-details">
+                                        <h4>Make Your SharePoint Look Fresh</h4>
+                                        <p>sites ... ... .communication Site</p>
+                                    </div>
+                                </a>
+                                
+                                <a href="#" class="doc-item">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-file-excel"></i>
+                                    </div>
+                                    <div class="doc-details">
+                                        <h4>11 Tips for a Killer SharePoint Intra...</h4>
+                                        <p>sites ... ... .Intranet or 2024</p>
+                                    </div>
+                                </a>
+                                
+                                <a href="#" class="doc-item">
+                                    <div class="doc-icon">
+                                        <i class="fas fa-file-alt"></i>
+                                    </div>
+                                    <div class="doc-details">
+                                        <h4>Top 12 SharePoint Web Parts for a...</h4>
+                                        <p>sites ... ... .Powerful Intranet</p>
+                                    </div>
+                                </a>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <div class="column">
+                        <section class="dashboard-section">
+                            <div class="section-header">
+                                <h2><i class="fas fa-clipboard-list"></i> My Forms</h2>
+                            </div>
+                            <div class="forms-list">
+                                <div class="search-box">
+                                    <i class="fas fa-search"></i>
+                                    <input type="text" placeholder="Search Forms & Templates">
+                                </div>
+                                <div class="forms-categories">
+                                    <a href="#" class="form-category">
+                                        <i class="fas fa-shield-alt"></i>
+                                        <span>Compliance</span>
+                                    </a>
+                                    <a href="#" class="form-category">
+                                        <i class="fas fa-user-tie"></i>
+                                        <span>Job Descriptions</span>
+                                    </a>
+                                    <a href="#" class="form-category">
+                                        <i class="fas fa-balance-scale"></i>
+                                        <span>Legal</span>
+                                    </a>
+                                    <a href="#" class="form-category">
+                                        <i class="fas fa-chart-line"></i>
+                                        <span>Performance</span>
+                                    </a>
+                                    <a href="#" class="form-category">
+                                        <i class="fas fa-graduation-cap"></i>
+                                        <span>Training</span>
+                                    </a>
+                                    <a href="#" class="form-category">
+                                        <i class="fas fa-box-open"></i>
+                                        <span>Welcome Package</span>
+                                    </a>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                
+                <!-- Resources & Meetings -->
+                <div class="dashboard-columns">
+                    <div class="column">
+                        <section class="dashboard-section">
+                            <div class="section-header">
+                                <h2><i class="fas fa-briefcase"></i> Resources for Your Role</h2>
+                                <div class="resource-filters">
+                                    <button class="filter-btn active">Announcements</button>
+                                    <button class="filter-btn">Team</button>
+                                    <button class="filter-btn">Enterprise Apps</button>
+                                    <button class="filter-btn">Training</button>
+                                    <button class="filter-btn">Process</button>
+                                </div>
+                            </div>
+                            <div class="resources-list">
+                                <div class="resource-item">
+                                    <div class="resource-header">
+                                        <h4>How to Use MS Teams? Ultimate Guide</h4>
+                                        <span class="resource-author">Sabina Saetgareeva - February 22, 2024</span>
+                                    </div>
+                                    <p class="resource-excerpt">Complete guide to using Microsoft Teams for collaboration and communication.</p>
+                                </div>
+                                
+                                <div class="resource-item">
+                                    <div class="resource-header">
+                                        <h4>How to Connect to an Office Printer?</h4>
+                                        <span class="resource-author">Sabina Saetgareeva - February 22, 2024</span>
+                                    </div>
+                                    <p class="resource-excerpt">Step-by-step instructions for connecting to network printers in the office.</p>
+                                </div>
+                                
+                                <div class="resource-item">
+                                    <div class="resource-header">
+                                        <h4>How To Reset a Password?</h4>
+                                        <span class="resource-author">Sabina Saetgareeva - February 22, 2024</span>
+                                    </div>
+                                    <p class="resource-excerpt">Guide for resetting your password and account recovery options.</p>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    
+                    <div class="column">
+                        <section class="dashboard-section">
+                            <div class="section-header">
+                                <h2><i class="fas fa-calendar-alt"></i> Meetings</h2>
+                                <div class="month-nav">
+                                    <button class="btn-icon"><i class="fas fa-chevron-left"></i></button>
+                                    <span>November 2023</span>
+                                    <button class="btn-icon"><i class="fas fa-chevron-right"></i></button>
+                                </div>
+                            </div>
+                            <div class="calendar">
+                                <div class="calendar-weekdays">
+                                    <span>Sun</span>
+                                    <span>Mon</span>
+                                    <span>Tue</span>
+                                    <span>Wed</span>
+                                    <span>Thu</span>
+                                    <span>Fri</span>
+                                    <span>Sat</span>
+                                </div>
+                                <div class="calendar-days">
+                                    <!-- Calendar days would be generated by JavaScript -->
+                                    <!-- For now, showing static content -->
+                                    <span class="day other-month">29</span>
+                                    <span class="day other-month">30</span>
+                                    <span class="day">1</span>
+                                    <span class="day">2</span>
+                                    <span class="day">3</span>
+                                    <span class="day">4</span>
+                                    <span class="day">5</span>
+                                    <span class="day">6</span>
+                                    <span class="day">7</span>
+                                    <span class="day">8</span>
+                                    <span class="day">9</span>
+                                    <span class="day">10</span>
+                                    <span class="day">11</span>
+                                    <span class="day">12</span>
+                                    <span class="day">13</span>
+                                    <span class="day">14</span>
+                                    <span class="day">15</span>
+                                    <span class="day">16</span>
+                                    <span class="day">17</span>
+                                    <span class="day">18</span>
+                                    <span class="day">19</span>
+                                    <span class="day">20</span>
+                                    <span class="day">21</span>
+                                    <span class="day">22</span>
+                                    <span class="day">23</span>
+                                    <span class="day">24</span>
+                                    <span class="day">25</span>
+                                    <span class="day">26</span>
+                                    <span class="day">27</span>
+                                    <span class="day">28</span>
+                                    <span class="day">29</span>
+                                    <span class="day">30</span>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                
+                <!-- Team Progress & Status -->
+                <div class="dashboard-columns">
+                    <div class="column">
+                        <section class="dashboard-section">
+                            <div class="section-header">
+                                <h2><i class="fas fa-chart-line"></i> Team Progress</h2>
+                                <span class="project-name">ClickUp Project Plan</span>
+                            </div>
+                            <div class="team-progress">
+                                <div class="progress-phase">
+                                    <h4 class="phase-title">Project Initiation</h4>
+                                    <div class="phase-tasks">
+                                        <div class="task complete">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Define project objectives</span>
+                                        </div>
+                                        <div class="task complete">
+                                            <i class="fas fa-check-circle"></i>
+                                            <span>Identify stakeholders</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="progress-phase">
+                                    <h4 class="phase-title">Project Planning & Execution</h4>
+                                    <div class="phase-tasks">
+             
